@@ -5,9 +5,9 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'rencon'
 require 'pit'
 
-config = Pit.get("redmine_sa", :require => {
-  "username" => "you email in ldap",
-  "password" => "your password in ldap",
+config = Pit.get("redmine", :require => {
+  "username" => "your username",
+  "password" => "your password",
   "realname" => "your name in redmine",
 })
 

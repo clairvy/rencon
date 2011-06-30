@@ -16,7 +16,7 @@ Rencon is a commandline interface of Redmine
 
 Type
 
-  $ rencon yourproj
+  $ rencon server yourproj
 
 then you get
 
@@ -35,19 +35,21 @@ then rencon uses 'rencon' as project name.
 
 == SETTINGS:
 
-You must write a following settings in bin/rencon to use rencon.
+You must write a following settings in $HOME/.pit/default.yml
 
-  CONFIG = {
-    :host     => 'REDMINE.URL/wituout/protocol',
-    :user     => 'USERNAME',
-    :pass     => 'PASSWORD',
-    :name     => 'YOUR NAME',
-    :per_page => 50,
+  --- 
+  redmine: 
+    realname: Your Name
+    username: Your username
+    password: Your password
+
+You must write a following settings in $HOME/.rencon
+
+  PROJECT_DEFS = {
+    'redmine.com' => %w[
+      project_name
+    ]
   }
-
-  PROJECTS = %w[
-    YOUR PROJECT NAMES HERE
-  ]
 
 == LICENSE:
 
