@@ -3,20 +3,30 @@ $KCODE = 'utf-8'
 
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'rencon'
+require 'pit'
 
+config = Pit.get("redmine_sa", :require => {
+  "username" => "you email in ldap",
+  "password" => "your password in ldap",
+  "realname" => "your name in redmine",
+})
 
 CONFIG = {
-  :host     => 'REDMINE.URL/without/protocol',
-  :user     => 'USERNAME',
-  :pass     => 'PASSWORD',
-  :name     => 'YOUR NAME',
+  :host     => ARGV[0],
+  :user     => config["username"],
+  :pass     => config["password"],
+  :name     => config["realname"],
   :per_page => 50,
 }
 
-PROJECTS = %w[
-  YOUR PROJECT NAMES HERE
-]
-PROJECT = PROJECTS.find {|proj| proj =~ /#{ARGV[0]}/ }
+if FileTest.exists? ENV['HOME'] + '/.rencon'
+  load ENV['HOME'] + '/.rencon'
+  PROJECTS = PROJECT_DEFS[CONFIG[:host]]
+else
+  PROJECTS = []
+end
+
+PROJECT = PROJECTS.find {|proj| proj =~ /#{ARGV[1]}/ }
 
 if PROJECT.nil?
   warn 'project was not found'
@@ -32,4 +42,3 @@ ticket_list = tickets.map {|row| row.values_at(0, 5).unshift(mark[row[6]]) * ' '
 puts title
 puts '-' * 18
 puts ticket_list
-

@@ -33,7 +33,7 @@ module Rencon
       check(config) or raise 'Invalid configuration'
       @config = config
       @states  = nil
-      @agent  = WWW::Mechanize.new
+      @agent  = Mechanize.new
       @agent.user_agent = 'Mac Safari'
       login
     end
