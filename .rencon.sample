@@ -1,0 +1,5 @@
+PROJECT_DEFS = {
+    'redmine.com' => %w[
+        project_name
+    ]
+}
